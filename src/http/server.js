@@ -2,6 +2,7 @@ const http = require('http')
 const path = require('node:path')
 const fs = require('node:fs')
 const { saveFile } = require('./util')
+const {queryAll}  = require('./database/index')
 
 const port = 3000;
 const host = '127.0.0.1'
@@ -10,9 +11,10 @@ const host = '127.0.0.1'
 const router = [
     {
         path: '/',
-        handler: (res, query) => {
+        handler: async (res, query) => {
             console.log(query)
-            res.end(JSON.stringify(query))
+            const result = await queryAll()
+            res.end(JSON.stringify(result))
         }
     },
     {
